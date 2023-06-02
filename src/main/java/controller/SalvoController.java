@@ -46,7 +46,7 @@ public class SalvoController {
 
     boolean gameOver = false;
 
-    while(!gameOver) {
+    while (!gameOver) {
       gameOver = playRound();
     }
 

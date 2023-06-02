@@ -8,7 +8,6 @@ import java.util.Map;
  * Represents a single player in a game of BattleSalvo.
  */
 public interface Player {
-
     /**
      * Get the player's name.
      *
@@ -58,6 +57,7 @@ public interface Player {
     /**
      * Notifies the player that the game is over.
      * Win, lose, and draw should all be supported
+     *
      * @param result if the player has won, lost, or forced a draw
      * @param reason the reason for the game ending
      */

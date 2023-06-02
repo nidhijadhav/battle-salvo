@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class AiPlayer extends APlayer{
+public class AiPlayer extends APlayer {
   List<Coord> shotsMade;
 
   public AiPlayer(String name, Random random, GameBoard board) {

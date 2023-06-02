@@ -96,9 +96,11 @@ public class GameBoard {
   public String playerBoardToString() {
     return boardToString(playerBoard);
   }
+
   public String opponentBoardToString() {
     return boardToString(opponentBoard);
   }
+
   private String boardToString(Cell[][] cells) {
     StringBuilder sb = new StringBuilder();
 

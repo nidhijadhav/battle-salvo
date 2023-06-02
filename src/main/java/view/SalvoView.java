@@ -33,8 +33,8 @@ public class SalvoView {
   }
 
   public int[] promptForCorrectDimensions() {
-    printLine("Uh Oh! You've entered invalid dimensions. Please remember that the height\n" +
-              "and width of the game must be in the range (6, 15), inclusive. Try again!");
+    printLine("Uh Oh! You've entered invalid dimensions. Please remember that the height\n"
+              + "and width of the game must be in the range (6, 15), inclusive. Try again!");
     printBreakLine();
 
     try {
@@ -70,6 +70,7 @@ public class SalvoView {
   }
 
   public int[] promptForShots(GameBoard board, int shotNum) {
+    printLine();
     displayBoard(board);
     printLine("Please Enter " + shotNum + " shots:");
     printBreakLine();

@@ -1,10 +1,10 @@
 package model;
 
 public enum ShipType {
-  CARRIER (6),
-  BATTLESHIP (5),
-  DESTROYER (4),
-  SUBMARINE (3);
+  CARRIER(6),
+  BATTLESHIP(5),
+  DESTROYER(4),
+  SUBMARINE(3);
 
   private final int size;
 
