@@ -6,9 +6,9 @@ public class Ship {
   private final ShipType type;
   private final List<Coord> locations;
   private boolean sunk;
-  private boolean vertical;
+  private final boolean vertical;
 
-  Ship(ShipType type, List<Coord> locations, boolean vertical) {
+  public Ship(ShipType type, List<Coord> locations, boolean vertical) {
     this.type = type;
     this.locations = locations;
     this.sunk = false;

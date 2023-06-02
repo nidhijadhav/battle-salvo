@@ -97,8 +97,12 @@ public class SalvoView {
     while (integers.size() < expectedCount && sc.hasNextLine()) {
       String line = sc.nextLine();
       Scanner lineScanner = new Scanner(line);
-      while (lineScanner.hasNextInt()) {
-        integers.add(lineScanner.nextInt());
+      while (lineScanner.hasNext()) {
+        if (lineScanner.hasNextInt()) {
+          integers.add(lineScanner.nextInt());
+        } else {
+          throw new IllegalArgumentException();
+        }
       }
     }
 
