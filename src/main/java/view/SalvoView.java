@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import model.GameBoard;
+import model.GameResult;
 
 public class SalvoView {
   private final Readable input;
@@ -58,6 +60,33 @@ public class SalvoView {
     printLine("Uh Oh! You've entered an invalid fleet. Please try again!");
     return promptForFleet(expectedSize);
 
+  }
+
+  private void displayBoard(GameBoard board) {
+    printLine("Opponent Board Data:");
+    printLine(board.opponentBoardToString());
+    printLine("Your Board:");
+    printLine(board.playerBoardToString());
+  }
+
+  public int[] promptForShots(GameBoard board, int shotNum) {
+    displayBoard(board);
+    printLine("Please Enter " + shotNum + " shots:");
+    printBreakLine();
+
+    try {
+      return readIntegers(shotNum * 2);
+    } catch (IllegalArgumentException e) {
+      return promptForShots(board, shotNum);
+    }
+  }
+
+  public void displayEndGame(GameResult result) {
+    switch (result) {
+      case WIN -> printLine("Congratulations! You won the game!");
+      case LOSE -> printLine("Game over! The AI won the game.");
+      case DRAW -> printLine("It's a draw! The game ended in a tie.");
+    }
   }
 
   private int[] readIntegers(int expectedCount) {

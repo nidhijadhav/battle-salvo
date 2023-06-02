@@ -64,11 +64,11 @@ public abstract class APlayer implements Player {
     return new Ship(type, locations, vertical);
   }
 
-  private boolean outOfBounds(Coord coord, int length, int width) {
+  private boolean outOfBounds(Coord coord, int height, int width) {
     int x = coord.getX();
     int y = coord.getY();
 
-    return x < 0 || x >= width || y < 0 || y >= length;
+    return x < 0 || x >= width || y < 0 || y >= height;
   }
 
   private boolean overlaps(Coord coord, List<Ship> existingShips) {
@@ -90,14 +90,19 @@ public abstract class APlayer implements Player {
     List<Coord> hits = new ArrayList<>();
 
     for (Coord shot : opponentShotsOnBoard) {
-      int x = shot.getX();
-      int y = shot.getY();
-
-      if (board.getPlayerCell(x, y) == Cell.S) {
-        hits.add(shot);
+      for (Ship ship : board.getShips()) {
+        for (Coord location : ship.getLocations()) {
+          int x = location.getX();
+          int y = location.getY();
+          if (x == shot.getX() && y == shot.getY()) {
+            hits.add(shot);
+          }
+        }
       }
     }
+
     board.updatePlayerBoard(opponentShotsOnBoard);
+    board.updateShips();
     return hits;
   }
 

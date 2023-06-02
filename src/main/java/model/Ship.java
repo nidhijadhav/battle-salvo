@@ -23,4 +23,8 @@ public class Ship {
     return sunk;
   }
 
+  public void setSunk() {
+    sunk = true;
+  }
+
 }

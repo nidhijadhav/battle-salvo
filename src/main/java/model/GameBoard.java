@@ -34,7 +34,7 @@ public class GameBoard {
       for (Coord coord : locations) {
         int x = coord.getX();
         int y = coord.getY();
-        playerBoard[x][y] = Cell.S;
+        playerBoard[y][x] = Cell.S;
       }
     }
 
@@ -46,10 +46,31 @@ public class GameBoard {
       int x = shot.getX();
       int y = shot.getY();
 
-      if (playerBoard[x][y] == Cell.S) {
-        playerBoard[x][y] = Cell.H;
+      if (playerBoard[y][x] == Cell.S) {
+        playerBoard[y][x] = Cell.H;
       } else {
-        playerBoard[x][y] = Cell.M;
+        playerBoard[y][x] = Cell.M;
+      }
+    }
+
+  }
+
+  public void updateShips() {
+    for (Ship ship : ships) {
+      boolean allLocationsHit = true;
+
+      for (Coord location : ship.getLocations()) {
+        int x = location.getX();
+        int y = location.getY();
+
+        if (playerBoard[y][x] != Cell.H) {
+          allLocationsHit = false;
+          break;
+        }
+      }
+
+      if (allLocationsHit) {
+        ship.setSunk();
       }
     }
   }
@@ -58,8 +79,18 @@ public class GameBoard {
     for (Coord shot : shots) {
       int x = shot.getX();
       int y = shot.getY();
-      playerBoard[x][y] = cell;
+      opponentBoard[y][x] = cell;
     }
+  }
+
+  public int getRemainingShipsCount() {
+    int count = 0;
+    for (Ship ship : ships) {
+      if (!ship.isSunk()) {
+        count++;
+      }
+    }
+    return count;
   }
 
   public String playerBoardToString() {
@@ -74,7 +105,11 @@ public class GameBoard {
     for (int i = 0; i < height; i++) {
       sb.append("\t");
       for (int j = 0; j < width; j++) {
-        sb.append(cells[i][j].toString()).append(" ");
+        if (cells[i][j] == Cell.O) {
+          sb.append("_").append(" ");
+        } else {
+          sb.append(cells[i][j].toString()).append(" ");
+        }
       }
       sb.append("\n");
     }
@@ -92,18 +127,6 @@ public class GameBoard {
 
   public List<Ship> getShips() {
     return ships;
-  }
-
-  public Cell getPlayerCell(int x, int y) {
-    return getCell(playerBoard, x, y);
-  }
-
-  public Cell getOpponentCell(int x, int y) {
-    return getCell(opponentBoard, x, y);
-  }
-
-  private Cell getCell(Cell[][] cells, int x, int y) {
-    return cells[x][y];
   }
 
 }

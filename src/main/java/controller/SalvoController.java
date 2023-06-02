@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import model.AiPlayer;
+import model.Coord;
 import model.GameBoard;
+import model.GameResult;
 import model.ManualPlayer;
+import model.ManualShots;
 import model.Ship;
 import model.ShipType;
 import view.SalvoView;
@@ -15,15 +18,15 @@ import view.SalvoView;
 public class SalvoController {
   private AiPlayer ai;
   private ManualPlayer manual;
+  private ManualShots ms = new ManualShots();
   private GameBoard aiBoard;
   private GameBoard manualBoard;
   private SalvoView view;
-  private final Readable input;
-  private final Appendable output;
+  private GameResult result;
+  private int height;
+  private int width;
 
   public SalvoController(Readable input, Appendable output) {
-    this.input = input;
-    this.output = output;
     this.view = new SalvoView(input, output);
   }
 
@@ -31,29 +34,62 @@ public class SalvoController {
     view.displayWelcomeMessage();
 
     int[] dimensions = validateDimensions(view.promptForDimensions());
-    int width = dimensions[0];
-    int height = dimensions[1];
+    height = dimensions[0];
+    width = dimensions[1];
     initialize(height, width);
 
     int maxFleet = Math.min(width, height);
     Map<ShipType, Integer> fleet = validateFleet(view.promptForFleet(maxFleet), maxFleet);
 
-    List<Ship> ships = manual.setup(height, width, fleet);
-    ships = ai.setup(height, width, fleet);
+    manual.setup(height, width, fleet);
+    ai.setup(height, width, fleet);
 
-    System.out.println(manualBoard.playerBoardToString());
-    System.out.println(aiBoard.playerBoardToString());
+    boolean gameOver = false;
 
+    while(!gameOver) {
+      gameOver = playRound();
+    }
+
+    view.displayEndGame(result);
+  }
+
+  private boolean playRound() {
+    ms.addShots(validateShots(view.promptForShots(manualBoard,
+        manualBoard.getRemainingShipsCount()), height, width));
+    List<Coord> manualShots = manual.takeShots();
+    List<Coord> aiShots = ai.takeShots();
+    List<Coord> successfulManualShots = ai.reportDamage(manualShots);
+    List<Coord> successfulAiShots = manual.reportDamage(aiShots);
+    manual.successfulHits(successfulManualShots);
+    ai.successfulHits(successfulAiShots);
+
+    if (manualBoard.getRemainingShipsCount() == 0 || aiBoard.getRemainingShipsCount() == 0) {
+      setGameResult();
+      return true;
+    }
+
+    ms.clearShots();
+    return false;
+  }
+
+  private void setGameResult() {
+    if (manualBoard.getRemainingShipsCount() == 0 && aiBoard.getRemainingShipsCount() == 0) {
+      result = GameResult.DRAW;
+    } else if (manualBoard.getRemainingShipsCount() == 0) {
+      result = GameResult.LOSE;
+    } else {
+      result = GameResult.WIN;
+    }
   }
 
   private int[] validateDimensions(int[] dimensions) {
-    int width = dimensions[0];
-    int height = dimensions[1];
+    int h = dimensions[0];
+    int w = dimensions[1];
 
-    while (width < 6 || width > 15 || height < 6 || height > 15) {
+    while (w < 6 || w > 15 || h < 6 || h > 15) {
       dimensions = view.promptForCorrectDimensions();
-      width = dimensions[0];
-      height = dimensions[1];
+      h = dimensions[0];
+      w = dimensions[1];
     }
 
     return dimensions;
@@ -81,12 +117,26 @@ public class SalvoController {
     return fleet;
   }
 
+  private int[] validateShots(int[] shots, int height, int width) {
+    for (int i = 0; i < shots.length; i = i + 2) {
+      int x = shots[i];
+      int y = shots[i + 1];
+
+      if (x < 0 || x >= width || y < 0 || y >= height) {
+        return validateShots(view.promptForShots(manualBoard,
+            manualBoard.getRemainingShipsCount()), height, width);
+      }
+    }
+
+    return shots;
+  }
+
   private void initialize(int height, int width) {
     aiBoard = new GameBoard(height, width);
     manualBoard = new GameBoard(height, width);
 
     ai = new AiPlayer("ai", new Random(), aiBoard);
-    manual = new ManualPlayer("manual", new Random(), manualBoard);
+    manual = new ManualPlayer("manual", new Random(), manualBoard, ms);
   }
 
 

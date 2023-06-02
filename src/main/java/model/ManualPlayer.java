@@ -5,12 +5,16 @@ import java.util.Random;
 
 public class ManualPlayer extends APlayer {
 
-  public ManualPlayer(String name, Random random, GameBoard board) {
+  private final ManualShots manualShots;
+
+  public ManualPlayer(String name, Random random, GameBoard board, ManualShots manualShots) {
     super(name, random, board);
+    this.manualShots = manualShots;
   }
 
   @Override
   public List<Coord> takeShots() {
-    return null;
+    board.updateOpponentBoard(manualShots.getShots(), Cell.M);
+    return manualShots.getShots();
   }
 }

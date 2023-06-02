@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 public class AiPlayer extends APlayer{
+  List<Coord> shotsMade;
 
   public AiPlayer(String name, Random random, GameBoard board) {
     super(name, random, board);
+    shotsMade = new ArrayList<>();
   }
 
 
@@ -15,12 +17,12 @@ public class AiPlayer extends APlayer{
   public List<Coord> takeShots() {
     List<Coord> shots = new ArrayList<>();
 
-    for (Ship ship : board.getShips()) {
-      if (!ship.isSunk()) {
-        shots.add(getRandomShot());
-      }
+    for (int i = 0; i < board.getRemainingShipsCount(); i++) {
+      Coord shot = getRandomShot();
+      shots.add(shot);
     }
 
+    board.updateOpponentBoard(shots, Cell.M);
     return shots;
   }
 
@@ -28,13 +30,14 @@ public class AiPlayer extends APlayer{
     int x = random.nextInt(board.getWidth());
     int y = random.nextInt(board.getHeight());
     Coord shot = new Coord(x, y);
-    while (board.getOpponentCell(x, y).equals(Cell.M) ||
-        board.getOpponentCell(x, y).equals(Cell.H)) {
-      x = random.nextInt(board.getWidth());
-      y = random.nextInt(board.getHeight());
-      shot = new Coord(x, y);
+
+    for (Coord coord : shotsMade) {
+      if (coord.getX() == x && coord.getY() == y) {
+        return getRandomShot();
+      }
     }
 
+    shotsMade.add(shot);
     return shot;
   }
 }
