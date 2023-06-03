@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import model.GameBoard;
+import model.GameBoardInterface;
 import model.GameResult;
 
 public class SalvoView {
@@ -62,14 +62,14 @@ public class SalvoView {
 
   }
 
-  private void displayBoard(GameBoard board) {
+  private void displayBoard(GameBoardInterface board) {
     printLine("Opponent Board Data:");
     printLine(board.opponentBoardToString());
     printLine("Your Board:");
     printLine(board.playerBoardToString());
   }
 
-  public int[] promptForShots(GameBoard board, int shotNum) {
+  public int[] promptForShots(GameBoardInterface board, int shotNum) {
     printLine();
     displayBoard(board);
     printLine("Please Enter " + shotNum + " shots:");

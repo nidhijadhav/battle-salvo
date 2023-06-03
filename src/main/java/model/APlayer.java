@@ -9,9 +9,9 @@ public abstract class APlayer implements Player {
   protected String name;
 
   protected Random random;
-  protected GameBoard board;
+  protected GameBoardInterface board;
 
-  APlayer(String name, Random random, GameBoard board) {
+  APlayer(String name, Random random, GameBoardInterface board) {
     this.name = name;
     this.random = random;
     this.board = board;

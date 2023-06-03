@@ -16,7 +16,7 @@ public class MockReadable implements Readable {
    *
    * @param list the list of input strings to be used for reading
    */
-  MockReadable(ArrayList<String> list) {
+  public MockReadable(ArrayList<String> list) {
     input = list;
   }
 

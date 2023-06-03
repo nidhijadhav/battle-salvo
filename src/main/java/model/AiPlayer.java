@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 public class AiPlayer extends APlayer {
-  List<Coord> shotsMade;
+  private List<Coord> shotsMade;
 
-  public AiPlayer(String name, Random random, GameBoard board) {
+  public AiPlayer(String name, Random random, GameBoardInterface board) {
     super(name, random, board);
     shotsMade = new ArrayList<>();
   }

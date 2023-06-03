@@ -3,8 +3,7 @@ package model;
 import java.util.Arrays;
 import java.util.List;
 
-public class GameBoard {
-
+public class GameBoard implements GameBoardInterface {
   private final int height;
   private final int width;
   private final Cell[][] playerBoard;

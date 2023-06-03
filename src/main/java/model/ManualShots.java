@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManualShots {
+public class ManualShots implements ManualShotsInterface {
   private List<Coord> shots = new ArrayList<>();
 
   public List<Coord> getShots() {

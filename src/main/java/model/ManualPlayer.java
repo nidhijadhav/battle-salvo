@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class ManualPlayer extends APlayer {
 
-  private final ManualShots manualShots;
+  private final ManualShotsInterface manualShots;
 
-  public ManualPlayer(String name, Random random, GameBoard board, ManualShots manualShots) {
+  public ManualPlayer(String name, Random random, GameBoardInterface board, ManualShotsInterface manualShots) {
     super(name, random, board);
     this.manualShots = manualShots;
   }

@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,35 +7,51 @@ import java.util.Random;
 import model.AiPlayer;
 import model.Coord;
 import model.GameBoard;
+import model.GameBoardInterface;
 import model.GameResult;
 import model.ManualPlayer;
 import model.ManualShots;
-import model.Ship;
+import model.ManualShotsInterface;
+import model.Player;
 import model.ShipType;
 import view.SalvoView;
 
+
 public class SalvoController {
-  private AiPlayer ai;
-  private ManualPlayer manual;
-  private ManualShots ms = new ManualShots();
-  private GameBoard aiBoard;
-  private GameBoard manualBoard;
+  private Player ai;
+  private Player manual;
+  private ManualShotsInterface ms;
+  private GameBoardInterface aiBoard;
+  private GameBoardInterface manualBoard;
   private SalvoView view;
   private GameResult result;
   private int height;
   private int width;
 
-  public SalvoController(Readable input, Appendable output) {
-    this.view = new SalvoView(input, output);
+  public SalvoController(SalvoView view) {
+    ms = new ManualShots();
+    this.view = view;
   }
 
-  public void runGame() {
+  public SalvoController(SalvoView view, ManualShotsInterface ms, Player ai, Player manual,
+                         GameBoardInterface aiBoard, GameBoardInterface manualBoard) {
+    this.view = view;
+    this.ms = ms;
+    this.ai = ai;
+    this.manual = manual;
+    this.aiBoard = aiBoard;
+    this.manualBoard = manualBoard;
+  }
+
+  public void runGame(boolean mock) {
     view.displayWelcomeMessage();
 
     int[] dimensions = validateDimensions(view.promptForDimensions());
     height = dimensions[0];
     width = dimensions[1];
-    initialize(height, width);
+    if (!mock) {
+      this.initialize(height, width);
+    }
 
     int maxFleet = Math.min(width, height);
     Map<ShipType, Integer> fleet = validateFleet(view.promptForFleet(maxFleet), maxFleet);
@@ -54,6 +69,7 @@ public class SalvoController {
   }
 
   private boolean playRound() {
+    ms.clearShots();
     ms.addShots(validateShots(view.promptForShots(manualBoard,
         manualBoard.getRemainingShipsCount()), height, width));
     List<Coord> manualShots = manual.takeShots();
@@ -67,8 +83,6 @@ public class SalvoController {
       setGameResult();
       return true;
     }
-
-    ms.clearShots();
     return false;
   }
 
@@ -77,7 +91,7 @@ public class SalvoController {
       result = GameResult.DRAW;
     } else if (manualBoard.getRemainingShipsCount() == 0) {
       result = GameResult.LOSE;
-    } else {
+    } else if (aiBoard.getRemainingShipsCount() == 0){
       result = GameResult.WIN;
     }
   }
@@ -138,6 +152,5 @@ public class SalvoController {
     ai = new AiPlayer("ai", new Random(), aiBoard);
     manual = new ManualPlayer("manual", new Random(), manualBoard, ms);
   }
-
 
 }
