@@ -20,10 +20,10 @@ import view.SalvoView;
 public class SalvoController {
   private Player ai;
   private Player manual;
-  private ManualShotsInterface ms;
+  private final ManualShotsInterface ms;
   private GameBoardInterface aiBoard;
   private GameBoardInterface manualBoard;
-  private SalvoView view;
+  private final SalvoView view;
   private GameResult result;
   private int height;
   private int width;

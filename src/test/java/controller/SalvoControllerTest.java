@@ -43,26 +43,26 @@ class SalvoControllerTest {
         mockManualBoard);
     controller.runGame(true);
     System.out.println(output);
-    String log = "setup\n" +
-        "setup\n" +
-        "clearShots\n" +
-        "getRemainingShipsCount\n" +
-        "opponentBoardToString\n" +
-        "playerBoardToString\n" +
-        "opponentBoardToString\n" +
-        "playerBoardToString\n" +
-        "addShots\n" +
-        "takeShots\n" +
-        "takeShots\n" +
-        "reportDamage\n" +
-        "reportDamage\n" +
-        "successfulHits\n" +
-        "successfulHits\n" +
-        "getRemainingShipsCount\n" +
-        "getRemainingShipsCount\n" +
-        "getRemainingShipsCount\n" +
-        "getRemainingShipsCount\n" +
-        "getRemainingShipsCount\n";
+    String log = "setup\n"
+        + "setup\n"
+        + "clearShots\n"
+        + "getRemainingShipsCount\n"
+        + "opponentBoardToString\n"
+        + "playerBoardToString\n"
+        + "opponentBoardToString\n"
+        + "playerBoardToString\n"
+        + "addShots\n"
+        + "takeShots\n"
+        + "takeShots\n"
+        + "reportDamage\n"
+        + "reportDamage\n"
+        + "successfulHits\n"
+        + "successfulHits\n"
+        + "getRemainingShipsCount\n"
+        + "getRemainingShipsCount\n"
+        + "getRemainingShipsCount\n"
+        + "getRemainingShipsCount\n"
+        + "getRemainingShipsCount\n";
     assertEquals(log, output.toString());
   }
 

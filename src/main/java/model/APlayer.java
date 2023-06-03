@@ -40,7 +40,6 @@ public abstract class APlayer implements Player {
 
   private Ship generateShip(ShipType type, int height, int width, List<Ship> existingShips) {
     List<Coord> locations = new ArrayList<>();
-    int size = type.getSize();
 
     int x = random.nextInt(width);
     int y = random.nextInt(height);
