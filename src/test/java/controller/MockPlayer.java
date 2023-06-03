@@ -11,6 +11,7 @@ import model.ShipType;
 
 public class MockPlayer implements Player {
   StringBuilder output;
+
   MockPlayer(StringBuilder output) {
     this.output = output;
   }

@@ -11,13 +11,16 @@ public class MockManualShots implements ManualShotsInterface {
   MockManualShots(StringBuilder output) {
     this.output = output;
   }
-  public List<Coord> getShots(){
+
+  public List<Coord> getShots() {
     output.append("getShots\n");
     return new ArrayList<>();
   }
+
   public void addShots(int[] shots) {
     output.append("addShots\n");
   }
+
   public void clearShots() {
     output.append("clearShots\n");
   }

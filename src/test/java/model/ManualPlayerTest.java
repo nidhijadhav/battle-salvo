@@ -16,6 +16,32 @@ import org.junit.jupiter.api.Test;
 class ManualPlayerTest {
   private ManualPlayer manualPlayer;
   private GameBoard gameBoard;
+  private List<Coord> carrierLocations = Arrays.asList(
+      new Coord(0, 0),
+      new Coord(0, 1),
+      new Coord(0, 2),
+      new Coord(0, 3),
+      new Coord(0, 4),
+      new Coord(0, 5)
+  );
+  private List<Coord> battleshipLocations = Arrays.asList(
+      new Coord(1, 2),
+      new Coord(2, 2),
+      new Coord(3, 2),
+      new Coord(4, 2),
+      new Coord(5, 2)
+  );
+  private List<Coord> destroyerLocations = Arrays.asList(
+      new Coord(1, 4),
+      new Coord(2, 4),
+      new Coord(3, 4),
+      new Coord(4, 4)
+  );
+  private List<Coord> submarineLocations = Arrays.asList(
+      new Coord(5, 3),
+      new Coord(5, 4),
+      new Coord(5, 5)
+  );
   Ship carrier;
   Ship battleship;
   Ship destroyer;
@@ -28,36 +54,6 @@ class ManualPlayerTest {
     manualShots = new ManualShots();
     Random rand = new Random(123);
     manualPlayer = new ManualPlayer("manual", rand, gameBoard, manualShots);
-    List<Coord> carrierLocations = Arrays.asList(
-        new Coord(0, 0),
-        new Coord(0, 1),
-        new Coord(0, 2),
-        new Coord(0, 3),
-        new Coord(0, 4),
-        new Coord(0, 5)
-    );
-
-    List<Coord> battleshipLocations = Arrays.asList(
-        new Coord(1, 2),
-        new Coord(2, 2),
-        new Coord(3, 2),
-        new Coord(4, 2),
-        new Coord(5, 2)
-    );
-
-    List<Coord> destroyerLocations = Arrays.asList(
-        new Coord(1, 4),
-        new Coord(2, 4),
-        new Coord(3, 4),
-        new Coord(4, 4)
-    );
-
-    List<Coord> submarineLocations = Arrays.asList(
-        new Coord(5, 3),
-        new Coord(5, 4),
-        new Coord(5, 5)
-    );
-
     carrier = new Ship(ShipType.CARRIER, carrierLocations, true);
     battleship = new Ship(ShipType.BATTLESHIP, battleshipLocations, false);
     destroyer = new Ship(ShipType.DESTROYER, destroyerLocations, false);

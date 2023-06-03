@@ -20,35 +20,17 @@ class AiPlayerTest {
 
   @BeforeEach
   public void setUp() {
-    List<Coord> carrierLocations = Arrays.asList(
-        new Coord(0, 0),
-        new Coord(0, 1),
-        new Coord(0, 2),
-        new Coord(0, 3),
-        new Coord(0, 4),
-        new Coord(0, 5)
-    );
+    List<Coord> carrierLocations = Arrays.asList(new Coord(0, 0), new Coord(0, 1),
+        new Coord(0, 2), new Coord(0, 3), new Coord(0, 4), new Coord(0, 5));
 
-    List<Coord> battleshipLocations = Arrays.asList(
-        new Coord(1, 2),
-        new Coord(2, 2),
-        new Coord(3, 2),
-        new Coord(4, 2),
-        new Coord(5, 2)
-    );
+    List<Coord> battleshipLocations = Arrays.asList(new Coord(1, 2), new Coord(2, 2),
+        new Coord(3, 2), new Coord(4, 2), new Coord(5, 2));
 
-    List<Coord> destroyerLocations = Arrays.asList(
-        new Coord(1, 4),
-        new Coord(2, 4),
-        new Coord(3, 4),
-        new Coord(4, 4)
-    );
+    List<Coord> destroyerLocations = Arrays.asList(new Coord(1, 4), new Coord(2, 4),
+        new Coord(3, 4), new Coord(4, 4));
 
-    List<Coord> submarineLocations = Arrays.asList(
-        new Coord(5, 3),
-        new Coord(5, 4),
-        new Coord(5, 5)
-    );
+    List<Coord> submarineLocations = Arrays.asList(new Coord(5, 3), new Coord(5, 4),
+        new Coord(5, 5));
 
     carrier = new Ship(ShipType.CARRIER, carrierLocations, true);
     battleship = new Ship(ShipType.BATTLESHIP, battleshipLocations, false);
