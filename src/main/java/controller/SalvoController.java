@@ -16,7 +16,10 @@ import model.Player;
 import model.ShipType;
 import view.SalvoView;
 
-
+/**
+ * The SalvoController class is responsible for controlling the flow of the BattleSalvo game.
+ * It coordinates the interactions between the players, game boards, shots, and the view.
+ */
 public class SalvoController {
   private Player ai;
   private Player manual;
@@ -28,11 +31,29 @@ public class SalvoController {
   private int height;
   private int width;
 
+  /**
+   * Instantiates a SalvoController object with the specified view.
+   *
+   * @param view the view for displaying the game interface
+   */
   public SalvoController(SalvoView view) {
     ms = new ManualShots();
     this.view = view;
   }
 
+  /**
+   * Instantiates a SalvoController object with the specified view, manual shots, players, and
+   * game boards.
+   *
+   * Used for testing
+   *
+   * @param view        the view for displaying the game interface
+   * @param ms          the manual shots interface for managing manual shots
+   * @param ai          the AI player
+   * @param manual      the manual player
+   * @param aiBoard     the game board for the AI player
+   * @param manualBoard the game board for the manual player
+   */
   public SalvoController(SalvoView view, ManualShotsInterface ms, Player ai, Player manual,
                          GameBoardInterface aiBoard, GameBoardInterface manualBoard) {
     this.view = view;
@@ -43,6 +64,11 @@ public class SalvoController {
     this.manualBoard = manualBoard;
   }
 
+  /**
+   * Runs the game, controlling the flow of gameplay.
+   *
+   * @param mock indicates whether to run the game with mock objects or not
+   */
   public void runGame(boolean mock) {
     view.displayWelcomeMessage();
 
@@ -68,6 +94,12 @@ public class SalvoController {
     view.displayEndGame(result);
   }
 
+  /**
+   * Plays a round of the game, including taking shots, reporting damage, and determining game
+   * over condition.
+   *
+   * @return true if the game is over, false otherwise
+   */
   private boolean playRound() {
     ms.clearShots();
     ms.addShots(validateShots(view.promptForShots(manualBoard,
@@ -86,6 +118,9 @@ public class SalvoController {
     return false;
   }
 
+  /**
+   * Sets the game result based on the remaining ships on the game boards.
+   */
   private void setGameResult() {
     if (manualBoard.getRemainingShipsCount() == 0 && aiBoard.getRemainingShipsCount() == 0) {
       result = GameResult.DRAW;
@@ -96,6 +131,12 @@ public class SalvoController {
     }
   }
 
+  /**
+   * Validates the dimensions of the game board.
+   *
+   * @param dimensions the dimensions provided by the user
+   * @return the validated dimensions
+   */
   private int[] validateDimensions(int[] dimensions) {
     int h = dimensions[0];
     int w = dimensions[1];
@@ -109,6 +150,13 @@ public class SalvoController {
     return dimensions;
   }
 
+  /**
+   * Validates the fleet sizes provided by the user.
+   *
+   * @param sizes      the fleet sizes provided by the user
+   * @param fleetSize  the maximum fleet size
+   * @return a map containing the ship types and their respective sizes
+   */
   private Map<ShipType, Integer> validateFleet(int[] sizes, int fleetSize) {
     int sum = 0;
     for (int size : sizes) {
@@ -131,6 +179,14 @@ public class SalvoController {
     return fleet;
   }
 
+  /**
+   * Validates the shot coordinates provided by the user.
+   *
+   * @param shots  the shot coordinates provided by the user
+   * @param height the height of the game board
+   * @param width  the width of the game board
+   * @return the validated shot coordinates
+   */
   private int[] validateShots(int[] shots, int height, int width) {
     for (int i = 0; i < shots.length; i = i + 2) {
       int x = shots[i];
@@ -145,6 +201,12 @@ public class SalvoController {
     return shots;
   }
 
+  /**
+   * Initializes the game boards and players.
+   *
+   * @param height the height of the game board
+   * @param width  the width of the game board
+   */
   private void initialize(int height, int width) {
     aiBoard = new GameBoard(height, width);
     manualBoard = new GameBoard(height, width);

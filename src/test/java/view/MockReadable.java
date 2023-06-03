@@ -37,6 +37,11 @@ public class MockReadable implements Readable {
     return 0;
   }
 
+  /**
+   * Sets input equal to the given input
+   *
+   * @param input a list of string input
+   */
   public void setInput(ArrayList<String> input) {
     this.input = input;
   }

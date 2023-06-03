@@ -13,6 +13,9 @@ import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Represents tests that check the functionality of the ManualPlayer class.
+ */
 class ManualPlayerTest {
   private ManualPlayer manualPlayer;
   private GameBoard gameBoard;
@@ -48,6 +51,9 @@ class ManualPlayerTest {
   Ship submarine;
   private ManualShots manualShots;
 
+  /**
+   * Sets up the test environment
+   */
   @BeforeEach
   public void setUp() {
     gameBoard = new GameBoard(6, 6);
@@ -60,11 +66,17 @@ class ManualPlayerTest {
     submarine = new Ship(ShipType.SUBMARINE, submarineLocations, true);
   }
 
+  /**
+   * Tests the name method of the ManualPlayer class.
+   */
   @Test
   public void testName() {
     assertEquals("manual", manualPlayer.name());
   }
 
+  /**
+   * Tests the setup method of the ManualPlayer class.
+   */
   @Test
   public void testSetup() {
     Map<ShipType, Integer> specifications = new HashMap<>();
@@ -106,7 +118,9 @@ class ManualPlayerTest {
     assertEquals(2, submarineCount);
   }
 
-
+  /**
+   * Tests the takeShots method of the ManualPlayer class.
+   */
   @Test
   public void testTakeShots() {
     List<Coord> shots = new ArrayList<>();
@@ -125,6 +139,9 @@ class ManualPlayerTest {
     assertEquals(expected.get(1).getY(), result.get(1).getY());
   }
 
+  /**
+   * Tests the reportDamage method of the ManualPlayer class.
+   */
   @Test
   public void testReportDamage() {
     gameBoard.placeShips(new ArrayList<>(List.of(carrier, battleship, destroyer, submarine)));
@@ -150,6 +167,9 @@ class ManualPlayerTest {
 
   }
 
+  /**
+   * Tests the successfulHits method of the ManualPlayer class.
+   */
   @Test
   public void testSuccessfullHits() {
     Coord hit1 = new Coord(0, 0);
@@ -170,6 +190,9 @@ class ManualPlayerTest {
     assertEquals(opponentBoard, gameBoard.opponentBoardToString());
   }
 
+  /**
+   * Tests the endGame method of the ManualPlayer class.
+   */
   @Test
   public void testEndGame() {
     manualPlayer.endGame(GameResult.WIN, "All opponent ships sunk");

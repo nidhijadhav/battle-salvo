@@ -12,6 +12,9 @@ import model.ShipType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Represents tests that check the functionality of the SalvoView class.
+ */
 class SalvoViewTest {
   private MockReadable input;
   private StringBuilder output;
@@ -19,6 +22,9 @@ class SalvoViewTest {
   private GameBoard board;
   private List<Coord> locations;
 
+  /**
+   * Sets up the test environment
+   */
   @BeforeEach
   public void setup() {
     input = new MockReadable(new ArrayList<>());
@@ -32,12 +38,20 @@ class SalvoViewTest {
         true))));
   }
 
+  /**
+   * Tests the displayWelcomeMessage method of the SalvoView class.
+   * Verifies that the welcome message is correctly displayed.
+   */
   @Test
   public void testDisplayWelcomeMessage() {
     salvoView.displayWelcomeMessage();
     assertEquals("Hello! Welcome to the OOD BattleSalvo Game!\n", output.toString());
   }
 
+  /**
+   * Tests the promptForDimensions method of the SalvoView class with valid input.
+   * Verifies that the method prompts for dimensions and returns the correct dimensions.
+   */
   @Test
   public void testPromptForDimensions_ValidInput() {
     input.setInput(new ArrayList<>(List.of("6 10\n")));
@@ -48,6 +62,12 @@ class SalvoViewTest {
     assertEquals(10, dimensions[1]);
   }
 
+  /**
+   * Tests the promptForDimensions method of the SalvoView class with invalid input followed by
+   * valid input.
+   * Verifies that the method displays an error message for invalid input and returns the correct
+   * dimensions for valid input.
+   */
   @Test
   public void testPromptForDimensions_InvalidInputThenValidInput() {
     input.setInput(new ArrayList<>(List.of("abc 7\n", "6 10")));
@@ -61,6 +81,11 @@ class SalvoViewTest {
     assertEquals(10, dimensions[1]);
   }
 
+  /**
+   * Tests the promptForCorrectDimensions method of the SalvoView class with valid input.
+   * Verifies that the method prompts for correct dimensions and returns the correct
+   * dimensions.
+   */
   @Test
   public void testPromptForCorrectDimensions_ValidInput() {
     input.setInput(new ArrayList<>(List.of("8\n", "12\n")));
@@ -73,6 +98,12 @@ class SalvoViewTest {
     assertEquals(12, dimensions[1]);
   }
 
+  /**
+   * Tests the promptForCorrectDimensions method of the SalvoView class with invalid input
+   * followed by valid input.
+   * Verifies that the method displays an error message for invalid input and returns the
+   * correct dimensions for valid input.
+   */
   @Test
   public void testPromptForCorrectDimensions_InvalidInputThenValidInput() {
     input.setInput(new ArrayList<>(List.of("abc\n", "6 8\n")));
@@ -88,6 +119,10 @@ class SalvoViewTest {
     assertEquals(8, dimensions[1]);
   }
 
+  /**
+   * Tests the promptForFleet method of the SalvoView class with valid input.
+   * Verifies that the method prompts for the fleet and returns the correct fleet.
+   */
   @Test
   public void testPromptForFleet_ValidInput() {
     input.setInput(new ArrayList<>(List.of("1\n", "2 3\n", "4\n")));
@@ -102,6 +137,12 @@ class SalvoViewTest {
     assertEquals(4, fleet[3]);
   }
 
+  /**
+   * Tests the promptForFleet method of the SalvoView class with invalid input followed by valid
+   * input.
+   * Verifies that the method displays an error message for invalid input and returns the correct
+   * fleet for valid input.
+   */
   @Test
   public void testPromptForFleet_InvalidInputThenValidInput() {
     input.setInput(new ArrayList<>(List.of("abc 2\n", " 1 2\n", "3\n", "4\n")));
@@ -120,6 +161,10 @@ class SalvoViewTest {
     assertEquals(4, fleet[3]);
   }
 
+  /**
+   * Tests the promptForCorrectFleet method of the SalvoView class with valid input.
+   * Verifies that the method prompts for correct fleet and returns the correct fleet.
+   */
   @Test
   public void testPromptForCorrectFleet_ValidInput() {
     input.setInput(new ArrayList<>(List.of("1 2 3 4\n")));
@@ -134,6 +179,13 @@ class SalvoViewTest {
     assertEquals(4, fleet[3]);
   }
 
+
+  /**
+   * Tests the promptForCorrectFleet method of the SalvoView class with invalid input followed
+   * by valid input.
+   * Verifies that the method displays an error message for invalid input and returns the
+   * correct fleet for valid input.
+   */
   @Test
   public void testPromptForCorrectFleet_InvalidInputThenValidInput() {
     input.setInput(new ArrayList<>(List.of("abc\n", "1 2\n", "3\n", "4\n")));
@@ -152,6 +204,10 @@ class SalvoViewTest {
     assertEquals(4, fleet[3]);
   }
 
+  /**
+   * Tests the promptForShots method of the SalvoView class with valid input.
+   * Verifies that the method prompts for shots and returns the correct shots.
+   */
   @Test
   public void testPromptForShots_ValidInput() {
     input.setInput(new ArrayList<>(List.of("1\n", "1\n")));
@@ -178,6 +234,12 @@ class SalvoViewTest {
 
   }
 
+  /**
+   * Tests the promptForShots method of the SalvoView class with invalid input followed
+   * by valid input.
+   * Verifies that the method displays an error message for invalid input and returns the
+   * correct shots for valid input.
+   */
   @Test
   public void testPromptForShots_InvalidInputThenValidInput() {
     input.setInput(new ArrayList<>(List.of("a 1\n", "5 5\n")));
@@ -220,18 +282,30 @@ class SalvoViewTest {
 
   }
 
+  /**
+   * Tests the displayEndGame method of the SalvoView class with a WIN game result.
+   * The test verifies that the method displays the correct message for a win game result.
+   */
   @Test
   public void testDisplayEndGameWin() {
     salvoView.displayEndGame(GameResult.WIN);
     assertEquals("Congratulations! You won the game!\n", output.toString());
   }
 
+  /**
+   * Tests the displayEndGame method of the SalvoView class with a LOSE game result.
+   * The test verifies that the method displays the correct message for a lose game result.
+   */
   @Test
   public void testDisplayEndGameLose() {
     salvoView.displayEndGame(GameResult.LOSE);
     assertEquals("Game over! The AI won the game.\n", output.toString());
   }
 
+  /**
+   * Tests the displayEndGame method of the SalvoView class with a DRAW game result.
+   * The test verifies that the method displays the correct message for a draw game result.
+   */
   @Test
   public void testDisplayEndGameDraw() {
     salvoView.displayEndGame(GameResult.DRAW);

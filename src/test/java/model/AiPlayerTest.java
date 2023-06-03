@@ -10,28 +10,34 @@ import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Represents tests that check the functionality of the AiPlayer class.
+ */
 class AiPlayerTest {
-  GameBoard board;
-  AiPlayer aiPlayer;
-  Ship carrier;
-  Ship battleship;
-  Ship destroyer;
-  Ship submarine;
+  private GameBoard board;
+  private AiPlayer aiPlayer;
+  private Ship carrier;
+  private Ship battleship;
+  private Ship destroyer;
+  private Ship submarine;
+  private final List<Coord> carrierLocations = Arrays.asList(new Coord(0, 0),
+      new Coord(0, 1), new Coord(0, 2), new Coord(0, 3), new Coord(0, 4),
+      new Coord(0, 5));
 
+  private final List<Coord> battleshipLocations = Arrays.asList(new Coord(1, 2),
+      new Coord(2, 2), new Coord(3, 2), new Coord(4, 2), new Coord(5, 2));
+
+  private final List<Coord> destroyerLocations = Arrays.asList(new Coord(1, 4),
+      new Coord(2, 4), new Coord(3, 4), new Coord(4, 4));
+
+  private final List<Coord> submarineLocations = Arrays.asList(new Coord(5, 3),
+      new Coord(5, 4), new Coord(5, 5));
+
+  /**
+   * Sets up the test environment by creating ships and a game board.
+   */
   @BeforeEach
   public void setUp() {
-    List<Coord> carrierLocations = Arrays.asList(new Coord(0, 0), new Coord(0, 1),
-        new Coord(0, 2), new Coord(0, 3), new Coord(0, 4), new Coord(0, 5));
-
-    List<Coord> battleshipLocations = Arrays.asList(new Coord(1, 2), new Coord(2, 2),
-        new Coord(3, 2), new Coord(4, 2), new Coord(5, 2));
-
-    List<Coord> destroyerLocations = Arrays.asList(new Coord(1, 4), new Coord(2, 4),
-        new Coord(3, 4), new Coord(4, 4));
-
-    List<Coord> submarineLocations = Arrays.asList(new Coord(5, 3), new Coord(5, 4),
-        new Coord(5, 5));
-
     carrier = new Ship(ShipType.CARRIER, carrierLocations, true);
     battleship = new Ship(ShipType.BATTLESHIP, battleshipLocations, false);
     destroyer = new Ship(ShipType.DESTROYER, destroyerLocations, false);
@@ -44,6 +50,9 @@ class AiPlayerTest {
 
   }
 
+  /**
+   * Tests the takeShots method of the AiPlayer class.
+   */
   @Test
   public void testTakeShots() {
     List<Coord> shots = aiPlayer.takeShots();

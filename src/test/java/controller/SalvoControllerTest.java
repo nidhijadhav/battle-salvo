@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import view.MockReadable;
 import view.SalvoView;
 
+/**
+ * Represents tests that check the functionality of the SalvoController class.
+ */
 class SalvoControllerTest {
   private MockReadable input;
   private StringBuilder viewOutput;
@@ -21,6 +24,9 @@ class SalvoControllerTest {
   private SalvoView view;
   private SalvoController controller;
 
+  /**
+   * Sets up the test environment before each test case.
+   */
   @BeforeEach
   public void setup() {
     input = new MockReadable(new ArrayList<>());
@@ -36,6 +42,9 @@ class SalvoControllerTest {
 
   }
 
+  /**
+   * Tests the runGame method for a win scenario.
+   */
   @Test
   public void testRunGameWin() {
     mockManualBoard = new MockGameBoard(output, 6);
@@ -67,6 +76,9 @@ class SalvoControllerTest {
     assertEquals(log, output.toString());
   }
 
+  /**
+   * Tests the runGame method for a lose scenario.
+   */
   @Test
   public void testRunGameLose() {
     mockManualBoard = new MockGameBoard(output, 4);
@@ -113,6 +125,9 @@ class SalvoControllerTest {
     assertEquals(log, output.toString());
   }
 
+  /**
+   * Tests the runGame method for a draw scenario.
+   */
   @Test
   public void testRunGameDraw() {
     mockManualBoard = new MockGameBoard(output, 3);

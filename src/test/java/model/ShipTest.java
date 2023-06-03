@@ -9,7 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Represents tests that check the functionality of the Ship class.
+ */
 class ShipTest {
+
+  /**
+   * Tests the getLocations method of the Ship class.
+   */
   @Test
   public void testGetLocations() {
     List<Coord> locations = new ArrayList<>();
@@ -22,6 +29,9 @@ class ShipTest {
     assertEquals(locations, ship.getLocations());
   }
 
+  /**
+   * Tests the isSunk method of the Ship class.
+   */
   @Test
   public void testIsSunk() {
     Ship ship = new Ship(ShipType.CARRIER, new ArrayList<>(), true);

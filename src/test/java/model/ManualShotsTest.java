@@ -1,19 +1,39 @@
 package model;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Represents tests that check the functionality of the ManualShots class.
+ */
 class ManualShotsTest {
   private ManualShots manualShots;
 
+  /**
+   * Sets up the test environment
+   */
   @BeforeEach
   public void setUp() {
     manualShots = new ManualShots();
   }
 
+  /**
+   * Tests the getShots method of the ManualShots class.
+   */
+  @Test
+  public void testGetShots() {
+    ArrayList<Coord> empty = new ArrayList<>();
+    assertEquals(empty, manualShots.getShots());
+  }
+
+  /**
+   * Tests the addShots method of the ManualShots class.
+   */
   @Test
   public void testAddShots() {
     int[] shots = {1, 2, 3, 4, 5, 6};
@@ -29,6 +49,9 @@ class ManualShotsTest {
     assertEquals(6, actualShots.get(2).getY());
   }
 
+  /**
+   * Tests the clearShots method of the ManualShots class.
+   */
   @Test
   public void testClearShots() {
     int[] shots = {1, 2, 3, 4};

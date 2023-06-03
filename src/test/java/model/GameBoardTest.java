@@ -11,6 +11,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Represents tests that check the functionality of the GameBoard class.
+ */
 class GameBoardTest {
   GameBoard board;
   Ship carrier;
@@ -18,6 +21,9 @@ class GameBoardTest {
   Ship destroyer;
   Ship submarine;
 
+  /**
+   * Sets up the test environment by creating ships and a game board.
+   */
   @BeforeEach
   public void setUp() {
     board = new GameBoard(6, 6);
@@ -60,22 +66,34 @@ class GameBoardTest {
 
   }
 
+  /**
+   * Tests the getHeight method of the GameBoard class.
+   */
   @Test
   public void testGetHeight() {
     assertEquals(6, board.getHeight());
   }
 
+  /**
+   * Tests the getWidth method of the GameBoard class.
+   */
   @Test
   public void testGetWidth() {
     assertEquals(6, board.getWidth());
   }
 
+  /**
+   * Tests the getShips method of the GameBoard class.
+   */
   @Test
   public void testGetShips() {
     assertArrayEquals(new ArrayList<>(List.of(carrier, battleship, destroyer, submarine)).toArray(),
         board.getShips().toArray());
   }
 
+  /**
+   * Tests the getRemainingShipsCount method of the GameBoard class.
+   */
   @Test
   public void testGetRemainingShipsCount() {
     assertEquals(4, board.getRemainingShipsCount());
@@ -84,6 +102,9 @@ class GameBoardTest {
   }
 
 
+  /**
+   * Tests the updateBoards method of the GameBoard class.
+   */
   @Test
   public void testUpdateBoards() {
     board.updatePlayerBoard(submarine.getLocations());
