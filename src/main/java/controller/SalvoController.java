@@ -44,7 +44,6 @@ public class SalvoController {
   /**
    * Instantiates a SalvoController object with the specified view, manual shots, players, and
    * game boards.
-   *
    * Used for testing
    *
    * @param view        the view for displaying the game interface
@@ -126,7 +125,7 @@ public class SalvoController {
       result = GameResult.DRAW;
     } else if (manualBoard.getRemainingShipsCount() == 0) {
       result = GameResult.LOSE;
-    } else if (aiBoard.getRemainingShipsCount() == 0){
+    } else if (aiBoard.getRemainingShipsCount() == 0) {
       result = GameResult.WIN;
     }
   }

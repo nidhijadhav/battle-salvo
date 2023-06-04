@@ -31,8 +31,8 @@ class SalvoViewTest {
     output = new StringBuilder();
     salvoView = new SalvoView(input, output);
     board = new GameBoard(6, 6);
-    locations = new ArrayList<>(List.of(new Coord(0,0), new Coord(0,1),
-        new Coord(0,2)));
+    locations = new ArrayList<>(List.of(new Coord(0, 0), new Coord(0, 1),
+        new Coord(0, 2)));
 
     board.placeShips(new ArrayList<>(List.of(new Ship(ShipType.SUBMARINE, locations,
         true))));
